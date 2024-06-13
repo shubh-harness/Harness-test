@@ -1,0 +1,6 @@
+environment:
+  name: testing
+  identifier: testing
+  orgIdentifier: default1
+  projectIdentifier: Sourabhtest
+  type: PreProduction
