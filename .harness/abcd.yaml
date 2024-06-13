@@ -1,6 +1,7 @@
 environment:
-  name: abcd
+  name: abcdas
   identifier: abcd
+  tags: {}
+  type: PreProduction
   orgIdentifier: default
   projectIdentifier: Shubhtest
-  type: PreProduction
