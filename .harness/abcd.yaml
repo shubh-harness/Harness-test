@@ -1,0 +1,6 @@
+environment:
+  name: abcd
+  identifier: abcd
+  orgIdentifier: default
+  projectIdentifier: Shubhtest
+  type: PreProduction
