@@ -1,0 +1,13 @@
+infrastructureDefinition:
+  name: andjfkasnkd
+  identifier: andjfkasnkd
+  orgIdentifier: default
+  projectIdentifier: Shubhtest
+  environmentRef: abcd
+  deploymentType: Kubernetes
+  type: KubernetesDirect
+  spec:
+    connectorRef: asdas
+    namespace: asxas
+    releaseName: release-<+INFRA_KEY_SHORT_ID>
+  allowSimultaneousDeployments: false
