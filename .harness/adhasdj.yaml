@@ -3,3 +3,6 @@ service:
   identifier: adhasdj
   orgIdentifier: default
   projectIdentifier: Shubhtest
+  serviceDefinition:
+    spec: {}
+    type: Kubernetes
