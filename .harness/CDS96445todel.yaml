@@ -1,0 +1,5 @@
+service:
+  name: CDS-96445-todel
+  identifier: CDS96445todel
+  orgIdentifier: Shubh
+  projectIdentifier: shubh
