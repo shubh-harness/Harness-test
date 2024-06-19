@@ -1,0 +1,6 @@
+environment:
+  name: CDS-96445
+  identifier: CDS96445
+  orgIdentifier: Shubh
+  projectIdentifier: shubh
+  type: PreProduction
