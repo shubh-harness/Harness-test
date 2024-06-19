@@ -1,0 +1,6 @@
+environment:
+  name: correct
+  identifier: correct
+  orgIdentifier: default
+  projectIdentifier: Shubhtest
+  type: PreProduction
