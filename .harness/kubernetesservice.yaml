@@ -1,0 +1,12 @@
+service:
+  name: kubernetes-service
+  identifier: kubernetesservice
+  serviceDefinition:
+    type: CustomDeployment
+    spec:
+      customDeploymentRef:
+        templateRef: account.rishabh
+        versionLabel: v1
+  gitOpsEnabled: false
+  orgIdentifier: Shubh
+  projectIdentifier: shubh
