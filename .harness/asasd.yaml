@@ -1,0 +1,16 @@
+infrastructureDefinition:
+  name: asasd
+  identifier: asasd
+  orgIdentifier: default
+  projectIdentifier: Shubhtest
+  environmentRef: abcd
+  deploymentType: Ssh
+  type: Pdc
+  spec:
+    credentialsRef: ssh
+    hostFilter:
+      type: All
+      spec: {}
+    hosts:
+      - 127.0.0.1
+  allowSimultaneousDeployments: false
