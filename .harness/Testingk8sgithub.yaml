@@ -1,0 +1,18 @@
+infrastructureDefinition:
+  name: Testing-k8s-github
+  identifier: Testingk8sgithub
+  orgIdentifier: default
+  projectIdentifier: Shubhtest
+  environmentRef: testingk8siam
+  deploymentType: Kubernetes
+  type: KubernetesAws
+  spec:
+    connectorRef: account.k8sqainframanualdirect
+    cluster: us-east-1/eks-qa-test-cluster
+    namespace: default
+    releaseName: release-<+INFRA_KEY_SHORT_ID>
+    region: us-east-1
+    manualConfig: true
+    endpoint: <+pipeline.stages.shell.spec.execution.steps.ShellScript_1.output.outputVariables.cluster_url>
+    caCertData: <+pipeline.stages.shell.spec.execution.steps.ShellScript_1.output.outputVariables.cluster_ca_data>
+  allowSimultaneousDeployments: false
