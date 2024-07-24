@@ -1,0 +1,11 @@
+{
+  "cluster": "ecs-tutorial",
+  "serviceName": "nginx-service",
+  "taskDefinition": "fargate-task-definition:1",
+  "desiredCount": 1,
+  "launchType": "FARGATE",
+  "platformVersion": "LATEST",
+  "propagateTags": "SERVICE",
+  "enableECSManagedTags": true,
+  "healthCheckGracePeriodSeconds": 60
+}
