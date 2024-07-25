@@ -14,5 +14,4 @@
   "platformVersion": "LATEST",
   "propagateTags": "SERVICE",
   "enableECSManagedTags": true,
-  "healthCheckGracePeriodSeconds": 60
 }
