@@ -4,7 +4,9 @@
   "taskDefinition": "nginx-task",
   "desiredCount": 1,
   "launchType": "EC2",
-  "networkConfiguration": {},
+  "networkConfiguration": {
+    "awsvpcConfiguration":{}
+  },
   "loadBalancers": [],
   "serviceRegistries": [],
   "placementConstraints": [],
