@@ -5,7 +5,15 @@
   "desiredCount": 1,
   "launchType": "EC2",
   "networkConfiguration": {
-    "awsvpcConfiguration":{}
+    "awsvpcConfiguration":{
+      "subnets": [
+        "subnet-0ad97b17bb713e58d"
+      ],
+      "securityGroups": [
+        "sg-02166e001c3efebcd"
+      ],
+      "assignPublicIp": "ENABLED"
+    }
   },
   "loadBalancers": [],
   "serviceRegistries": [],
