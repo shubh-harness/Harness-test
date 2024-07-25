@@ -1,5 +1,5 @@
 {
-  "cluster": "my-ec2-cluster",
+  "cluster": "ecs-tutorial",
   "serviceName": "nginx-service",
   "taskDefinition": "nginx-task",
   "desiredCount": 1,
