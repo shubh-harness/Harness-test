@@ -4,13 +4,13 @@ metadata:
   name: pre-hook-job
   annotations:
     "helm.sh/hook": pre-install,pre-upgrade
-    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-weight": "0" # Lower weight to execute first
 spec:
   template:
     spec:
       containers:
         - name: pre-hook
           image: busybox
-          command: ["sh", "-c", "echo Pre-hook executed; sleep 5"]
+          command: ["sh", "-c", "echo Pre-hook executed successfully; sleep 5"]
       restartPolicy: Never
   backoffLimit: 1
