@@ -4,17 +4,19 @@ metadata:
   name: pre-hook-job
   annotations:
     "helm.sh/hook": pre-install,pre-upgrade
-    "helm.sh/hook-weight": "0" # Lower weight to execute first
+    "helm.sh/hook-weight": "0" # Ensures this runs before other hooks
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed # Cleans up after execution
 spec:
   template:
     spec:
       containers:
-        - name: pre-hook
-          image: busybox
-          command:
-            [
-    "sh",
-    "-c",
-    "echo 'Running post-hook...'; sleep 5; echo 'Simulating failure'; exit 1"
-  ] # Exit with non-zero status      restartPolicy: Never
-  backoffLimit: 1
+      - name: fail-pre-hook
+        image: busybox
+        command:
+          [
+            "sh",
+            "-c",
+            "echo 'Running pre-hook...'; sleep 5; echo 'Simulating failure'; exit 1"
+          ] # Exit with non-zero status to simulate failure
+      restartPolicy: Never
+  backoffLimit: 0 # No retries; fail immediately
