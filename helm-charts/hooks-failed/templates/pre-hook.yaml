@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pre-hook-job
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "0" # Lower weight to execute first
+spec:
+  template:
+    spec:
+      containers:
+        - name: pre-hook
+          image: busybox
+          command:
+            [
+    "sh",
+    "-c",
+    "echo 'Running post-hook...'; sleep 5; echo 'Simulating failure'; exit 1"
+  ] # Exit with non-zero status      restartPolicy: Never
+  backoffLimit: 1
