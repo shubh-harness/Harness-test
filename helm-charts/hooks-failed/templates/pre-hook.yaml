@@ -1,22 +1,15 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: pre-hook-job
+  name: post-upgrade-failing-job
   annotations:
-    "helm.sh/hook": pre-install,pre-upgrade
-    "helm.sh/hook-weight": "0" # Ensures this runs before other hooks
-    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed # Cleans up after execution
+    "helm.sh/hook": post-upgrade
 spec:
+  backoffLimit: 3  # Retry 3 times before failing
   template:
     spec:
       containers:
-      - name: fail-pre-hook
+      - name: failing-container
         image: busybox
-        command:
-          [
-            "sh",
-            "-c",
-            "echo 'Running pre-hook...'; sleep 5; echo 'Simulating failure'; exit 1"
-          ] # Exit with non-zero status to simulate failure
+        command: ["sh", "-c", "exit 1"]  # This always fails
       restartPolicy: Never
-  backoffLimit: 0 # No retries; fail immediately
