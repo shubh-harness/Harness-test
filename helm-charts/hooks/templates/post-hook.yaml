@@ -15,7 +15,7 @@ spec:
           [
             "sh",
             "-c",
-            "echo 'Running post-hook...'; sleep 5; echo 'Simulating failure'; exit 1"
-          ] # Exit with non-zero status
-      restartPolicy: Never
+            "if [ $(kubectl get deployment nginx-deployment -o jsonpath='{.metadata.generation}') -gt 1 ]; then echo Post-hook failed; exit 1; fi"
+          ]
+        restartPolicy: Never
   backoffLimit: 0 # No retries, fail immediately
