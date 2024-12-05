@@ -31,7 +31,7 @@
       }
     ]
   },
-  "Tags": [
+  "TagSpecifications": [
     {
       "Key": "TemplateName",
       "Value": "shubh"
