@@ -1,0 +1,44 @@
+{
+  "LaunchTemplateData": {
+    "InstanceType": "t2.micro",
+    "KeyName": "vit-cd-play",
+    "TagSpecifications": [
+      {
+        "ResourceType": "instance",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "ASG-Instance"
+          },
+          {
+            "Key": "Environment",
+            "Value": "Production"
+          }
+        ]
+      },
+      {
+        "ResourceType": "volume",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "ASG-Volume"
+          },
+          {
+            "Key": "Environment",
+            "Value": "Production"
+          }
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    {
+      "Key": "TemplateName",
+      "Value": "shubh"
+    },
+    {
+      "Key": "Owner",
+      "Value": "DevOpsTeam"
+    }
+  ]
+}
