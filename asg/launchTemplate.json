@@ -31,14 +31,20 @@
       }
     ]
   },
-  "TagSpecifications": [
-    {
-      "Key": "TemplateName",
-      "Value": "shubh"
-    },
-    {
-      "Key": "Owner",
-      "Value": "DevOpsTeam"
-    }
-  ]
+  "tagSpecifications" : [ {
+    "resourceType" : "launch-template",
+    "tags" : [ {
+      "key" : "4",
+      "value" : "shubh-new-123456"
+    }, {
+      "key" : "5",
+      "value" : "a"
+    }, {
+      "key" : "6",
+      "value" : "b"
+    }, {
+      "key" : "tempalate-test-tag",
+      "value" : "lala-shubh-new-sadsadsa111"
+    } ]
+  } ]
 }
