@@ -1,0 +1,8 @@
+{
+  "autoScalingGroupName": "AUTO-<+service.identifier>",
+  "minSize": 1,
+  "maxSize": 1,
+  "desiredCapacity": 1,
+  "tags": [{"key": "test", "value":  "<+pipeline.stages.s.spec.artifacts.primary.amiId>"}, {"key": "serviceVar", "value":  "<+serviceVariables.serviceVar>"}, {"key": "envVar", "value":  "<+env.variables.envVar>"}],
+  "availabilityZones": ["us-east-1a", "us-east-1b"]
+}
