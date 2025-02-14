@@ -1,0 +1,142 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2024-12-05T10:10:08Z"
+  generateName: todolist-service-2-7b859d88df-
+  labels:
+    app: todolist-service-2
+    harness.io/track: stable
+    pod-template-hash: 7b859d88df
+    release: service-2
+  name: todolist-service-2-7b859d88df-ld9zk
+  namespace: default
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: todolist-service-2-7b859d88df
+    uid: f042cfb8-673d-4815-b717-e6cc7193ae31
+  resourceVersion: "1212518"
+  uid: 599ebea9-9ab5-4d4e-9131-3530e1403191
+spec:
+  containers:
+  - image: harness/todolist-sample:11
+    imagePullPolicy: IfNotPresent
+    name: todolist-service-2
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-ccqdd
+      readOnly: true
+  - image: harness/todolist-sample:12
+    imagePullPolicy: IfNotPresent
+    name: todolist-added-by-ach
+    ports:
+    - containerPort: 81
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-ccqdd
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: lima-rancher-desktop
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-ccqdd
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2024-12-05T10:10:09Z"
+    status: "True"
+    type: PodReadyToStartContainers
+  - lastProbeTime: null
+    lastTransitionTime: "2024-12-05T10:10:08Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2024-12-05T10:10:09Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2024-12-05T10:10:09Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2024-12-05T10:10:08Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://4fa82943cc53d8510871526eeceb4a251fc38423cb181f58355d3c2a682e9ee3
+    image: harness/todolist-sample:12
+    imageID: docker-pullable://harness/todolist-sample@sha256:0e2fffb3d462e07a11dbd50cce1608cbf0c0eef3984f635325df451d359467bd
+    lastState: {}
+    name: todolist-added-by-ach
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2024-12-05T10:10:09Z"
+  - containerID: docker://841d4a8cb25bfb8661687e7162ddb9b19f9e3add911a1b002b3fa0c752eca3f0
+    image: harness/todolist-sample:11
+    imageID: docker-pullable://harness/todolist-sample@sha256:6c53dfb2c2dec2ffef27c16b3b22b988c137f9540a08f13fe249da344f7ab07f
+    lastState: {}
+    name: todolist-service-2
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2024-12-05T10:10:09Z"
+  hostIP: 192.168.5.15
+  hostIPs:
+  - ip: 192.168.5.15
+  phase: Running
+  podIP: 10.42.0.205
+  podIPs:
+  - ip: 10.42.0.205
+  qosClass: BestEffort
+  startTime: "2024-12-05T10:10:08Z"

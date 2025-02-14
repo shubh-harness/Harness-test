@@ -1,0 +1,32 @@
+# Pre-install Hook - Runs before the chart is installed
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pre-install-job
+  annotations:
+    helm.sh/hook: pre-install
+spec:
+  template:
+    spec:
+      containers:
+        - name: pre-install
+          image: busybox
+          command: ["echo", "Running pre-install hook lalalalal"]
+      restartPolicy: Never
+
+---
+# Post-install Hook - Runs after the chart is installed
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: post-install-job
+  annotations:
+    helm.sh/hook: post-install
+spec:
+  template:
+    spec:
+      containers:
+        - name: post-install
+          image: busybox
+          command: ["echo", "Running post-install hook blalalhhhala"]
+      restartPolicy: Never

@@ -1,0 +1,28 @@
+{{- define "my-app.fullname" -}}
+{{- .Release.Name | cat "-" .Values.appName -}}
+{{- end -}}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "my-app.fullname" . }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  {{- if not .Values.hpa.enabled }}
+  replicas: {{ .Values.replicas }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}  # Matching the app label for the selector
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}  # Assign the app label to the pod
+    spec:
+      containers:
+        - name: {{ .Values.appName }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 80
+

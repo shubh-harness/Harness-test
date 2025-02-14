@@ -1,0 +1,126 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: harness-delegate-ng
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: harness-delegate-ng-cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: harness-delegate-ng
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: shubh-delegate-new-account-token
+  namespace: harness-delegate-ng
+type: Opaque
+data:
+  DELEGATE_TOKEN: "ODA4NjllOTBiM2QyZWI0NWQzMmFhNDlmM2VkOGExMmY="
+
+---
+
+# If delegate needs to use a proxy, please follow instructions available in the documentation
+# https://ngdocs.harness.io/article/5ww21ewdt8-configure-delegate-proxy-settings
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    harness.io/name: shubh-delegate-new
+  name: shubh-delegate-new
+  namespace: harness-delegate-ng
+spec:
+  replicas: 1
+  minReadySeconds: 120
+  selector:
+    matchLabels:
+      harness.io/name: shubh-delegate-new
+  template:
+    metadata:
+      labels:
+        harness.io/name: shubh-delegate-new
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "3460"
+        prometheus.io/path: "/api/metrics"
+    spec:
+      terminationGracePeriodSeconds: 3600
+      restartPolicy: Always
+      containers:
+      - image: us.gcr.io/gcr-play/delegate:24.12.1.64.2-develop-cbab40
+        imagePullPolicy: Always
+        name: delegate
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsUser: 0
+        ports:
+          - containerPort: 8080
+        resources:
+          limits:
+            memory: "2048Mi"
+          requests:
+            cpu: "0.5"
+            memory: "2048Mi"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 3460
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          failureThreshold: 3
+        startupProbe:
+          httpGet:
+            path: /api/health
+            port: 3460
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 15
+        envFrom:
+        - secretRef:
+            name: shubh-delegate-new-account-token
+        env:
+        - name: JAVA_OPTS
+          value: "-Xms64M"
+        - name: ACCOUNT_ID
+          value: GmL0aC_wQPi17CNxmmvNHA
+        - name: MANAGER_HOST_AND_PORT
+          value: https://namantalaycha.pr2.harness.io
+        - name: DEPLOY_MODE
+          value: KUBERNETES_ONPREM
+        - name: DELEGATE_NAME
+          value: shubh-delegate-new
+        - name: DELEGATE_TYPE
+          value: "KUBERNETES"
+        - name: DELEGATE_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: INIT_SCRIPT
+          value: ""
+        - name: DELEGATE_DESCRIPTION
+          value: ""
+        - name: DELEGATE_TAGS
+          value: ""
+        - name: NEXT_GEN
+          value: "true"
+        - name: CLIENT_TOOLS_DOWNLOAD_DISABLED
+          value: "true"
+        - name: DELEGATE_RESOURCE_THRESHOLD
+          value: ""
+        - name: DYNAMIC_REQUEST_HANDLING
+          value: "false"
+

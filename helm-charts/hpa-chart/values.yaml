@@ -1,0 +1,28 @@
+# App name (you can customize this as needed)
+appName: my-app
+
+# Number of replicas for the deployment
+replicas: 4
+
+# Image settings for the container
+image:
+  repository: nginx
+  tag: latest
+
+# Autoscaling (HPA) settings
+hpa:
+  enabled: true  # Set this to true to enable HPA
+  maxReplicas: 5
+  # replicas: 10
+  metrics:
+    cpu:
+      targetAverageUtilization: 80
+
+# Resources for the container
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi
