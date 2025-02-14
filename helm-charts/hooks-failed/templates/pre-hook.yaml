@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: post-upgrade-failing-job
+  annotations:
+    "helm.sh/hook": post-upgrade
+spec:
+  backoffLimit: 5  # Retry 3 times before failing
+  template:
+    spec:
+      containers:
+      - name: failing-container
+        image: busybox
+        command: ["sh", "-c", "exit 1"]  # This always fails
+      restartPolicy: Never
