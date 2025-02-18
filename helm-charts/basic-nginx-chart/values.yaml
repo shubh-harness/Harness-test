@@ -1,4 +1,5 @@
 replicaCount: 1
+namespace: default
 image:
   repository: nginx
   tag: stable
