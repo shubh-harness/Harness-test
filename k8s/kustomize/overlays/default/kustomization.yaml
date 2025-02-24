@@ -2,7 +2,7 @@
 resources:
   - ../../base
 apiVersion: apps/v1
-kind: Deployment
+kind: Kustomization
 metadata:
   name: welcome-php
   namespace: kapp
