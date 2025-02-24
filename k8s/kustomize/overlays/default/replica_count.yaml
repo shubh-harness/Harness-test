@@ -2,5 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: welcome-php
+  namespace: kapp  # 👈 Add namespace to match the base Deployment
 spec:
   replicas: 3
