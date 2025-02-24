@@ -1,5 +1,10 @@
 # kustomization.yaml contents
 resources:
   - ../../base
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: welcome-php
+  namespace: kapp
 patches:
   - replica_count.yaml
