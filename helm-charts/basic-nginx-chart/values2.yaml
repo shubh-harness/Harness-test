@@ -1,5 +1,5 @@
 replicaCount: 1
-namespace: default
+namespace: shubh
 image:
   repository: nginx
   tag: stable
