@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookstore>
+    <book year="1997">
+        <title>Harry Potter and the Philosopher's Stone</title>
+        <author>J.K. Rowling</author>
+    </book>
+    <book year="1954">
+        <title>The Fellowship of the Ring</title>
+        <author>J.R.R. Tolkien</author>
+    </book>
+    <book year="1990">
+        <title>Matilda</title>
+        <author>Roald Dahl</author>
+    </book>
+</bookstore>
