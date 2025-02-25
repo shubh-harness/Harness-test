@@ -5,6 +5,6 @@ resources:
   - ../base
 patches:
   - path: deployment-patch.yaml
-    target:
-      kind: Deployment
-      name: hello-world
+#    target:
+#      kind: Deployment
+#      name: hello-world
