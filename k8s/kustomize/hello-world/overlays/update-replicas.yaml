@@ -1,0 +1,15 @@
+# overlays/production/deployment-patch.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+spec:
+  replicas: 5
+  template:
+    spec:
+      containers:
+        - name: hello-world
+          image: nginx:stable
+          env:
+            - name: HELLO_MSG
+              value: "Hello, Production World! -->>>>> new asdasdsad"
