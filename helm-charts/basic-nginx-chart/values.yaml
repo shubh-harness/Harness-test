@@ -1,4 +1,4 @@
-replicaCount: 3
+replicaCount: 2
 namespace: harshit1
 image:
   repository: nginx
