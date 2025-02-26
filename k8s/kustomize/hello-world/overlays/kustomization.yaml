@@ -5,6 +5,7 @@ resources:
   - ../base
 patches:
   - path: deployment-patch.yaml
+  - path: update-replica.yaml
 #    target:
 #      kind: Deployment
 #      name: hello-world
