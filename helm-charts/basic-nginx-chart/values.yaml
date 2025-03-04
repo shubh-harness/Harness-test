@@ -1,5 +1,5 @@
 replicaCount: 1
-namespace: tarun-ng2
+namespace: harshit2
 image:
   repository: nginx
   tag: stable
