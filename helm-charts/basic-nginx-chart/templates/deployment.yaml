@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
-  namespace: {{ .Values.namespace}}
+  namespace: {{ .Values.namespace }}
   labels:
     app: nginx
 spec:
@@ -17,6 +17,11 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "invalid-image:latest"  # ⬅️ This will cause ImagePullError
           ports:
             - containerPort: {{ .Values.service.port }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.service.port }}
+            timeoutSeconds: 10  # ⬅️ Liveness probe timeout set to 10 seconds
