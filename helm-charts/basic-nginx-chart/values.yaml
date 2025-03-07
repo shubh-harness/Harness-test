@@ -1,5 +1,5 @@
 replicaCount: 1
-namespace: harshit3
+namespace: harshit4
 image:
   repository: nginx
   tag: stable
