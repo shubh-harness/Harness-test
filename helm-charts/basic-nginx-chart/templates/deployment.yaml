@@ -17,11 +17,14 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: "invalid-image:latest" #"{{ .Values.image.repository }}:{{ .Values.image.tag }}" #"invalid-image:latest"  # ⬅️ This will cause ImagePullError
+          image: "invalid-image:latest"  # This will cause ImagePullError
           ports:
             - containerPort: {{ .Values.service.port }}
           livenessProbe:
             httpGet:
               path: /
               port: {{ .Values.service.port }}
-            timeoutSeconds: 10  # ⬅️ Liveness probe timeout set to 10 seconds
+            initialDelaySeconds: 200  # High initial delay (3 minutes)
+            periodSeconds: 5          # Check every 5 seconds after initial delay
+            timeoutSeconds: 1         # Timeout quickly if probe doesn't respond
+            failureThreshold: 2       # Fail after 2 failed checks (within 10s)
