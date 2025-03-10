@@ -34,7 +34,7 @@ spec:
           # 🚨 Liveness Probe (fails after some time)
           livenessProbe:
             httpGet:
-              path: /
+              path: /wrong-path 
               port: {{ .Values.service.port }}
             initialDelaySeconds: 200  # (🚀 Waits ~3 mins before checking)
             periodSeconds: 5          # (🔁 Checks every 5 seconds)
