@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
+          image: "{{ .Values.image.repository }}:randomblahblah" 
           ports:
             - containerPort: {{ .Values.service.port }}
           
@@ -36,7 +36,7 @@ spec:
             httpGet:
               path: /wrong-path 
               port: {{ .Values.service.port }}
-            initialDelaySeconds: 200  # (🚀 Waits ~3 mins before checking)
+            initialDelaySeconds: 40  # (🚀 Waits ~3 mins before checking)
             periodSeconds: 5          # (🔁 Checks every 5 seconds)
             timeoutSeconds: 1         # (⚡ Quick timeout)
             failureThreshold: 1       # (❌ Fails immediately on first failure)
