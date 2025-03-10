@@ -17,14 +17,26 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: "invalid-image:latest"  # This will cause ImagePullError
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
           ports:
             - containerPort: {{ .Values.service.port }}
+          
+          # 🛠️ Readiness Probe (ensures rollout success)
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 1
+            failureThreshold: 1
+
+          # 🚨 Liveness Probe (fails after some time)
           livenessProbe:
             httpGet:
               path: /
               port: {{ .Values.service.port }}
-            initialDelaySeconds: 200  # High initial delay (3 minutes)
-            periodSeconds: 5          # Check every 5 seconds after initial delay
-            timeoutSeconds: 1         # Timeout quickly if probe doesn't respond
-            failureThreshold: 2       # Fail after 2 failed checks (within 10s)
+            initialDelaySeconds: 200  # (🚀 Waits ~3 mins before checking)
+            periodSeconds: 5          # (🔁 Checks every 5 seconds)
+            timeoutSeconds: 1         # (⚡ Quick timeout)
+            failureThreshold: 1       # (❌ Fails immediately on first failure)
