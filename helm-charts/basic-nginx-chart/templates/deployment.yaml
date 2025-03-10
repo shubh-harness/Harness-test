@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: "{{ .Values.image.repository }}:latest" 
+          image: "{{ .Values.image.repository }}:latest-blalalal" 
           ports:
             - containerPort: {{ .Values.service.port }}
           
