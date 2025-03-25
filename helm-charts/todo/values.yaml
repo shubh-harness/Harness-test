@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: todo-app
-  tag: latest
+  tag: latest-blq
   pullPolicy: IfNotPresent
 
 service:
