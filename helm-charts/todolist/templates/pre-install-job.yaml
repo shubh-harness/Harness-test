@@ -1,0 +1,37 @@
+{{- if .Values.crds.install }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "todolist.fullname" . }}-crd-install
+  labels:
+    {{- include "todolist.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    metadata:
+      name: {{ include "todolist.fullname" . }}-crd-install
+      labels:
+        {{- include "todolist.selectorLabels" . | nindent 8 }}
+    spec:
+      restartPolicy: OnFailure
+      serviceAccountName: {{ include "todolist.fullname" . }}-crd-installer
+      containers:
+        - name: install-crds
+          image: "bitnami/kubectl:latest"
+          command:
+            - /bin/sh
+            - -c
+            - |
+              kubectl apply -f /crds/todolist.yaml
+              kubectl apply -f /crds/todoitem.yaml
+          volumeMounts:
+            - name: crds
+              mountPath: /crds
+      volumes:
+        - name: crds
+          configMap:
+            name: {{ include "todolist.fullname" . }}-crds
+{{- end }}
