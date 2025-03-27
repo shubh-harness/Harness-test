@@ -1,0 +1,87 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: todoitems.todo.example.com
+spec:
+  group: todo.example.com
+  names:
+    kind: TodoItem
+    listKind: TodoItemList
+    plural: todoitems
+    singular: todoitem
+    shortNames:
+      - tdi
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              required:
+                - name
+                - listRef
+              properties:
+                name:
+                  type: string
+                  description: Name of the todo item
+                description:
+                  type: string
+                  description: Description of the todo item
+                completed:
+                  type: boolean
+                  description: Whether the todo item is completed
+                  default: false
+                dueDate:
+                  type: string
+                  format: date-time
+                  description: Due date for the todo item
+                priority:
+                  type: string
+                  enum: [low, medium, high]
+                  default: medium
+                  description: Priority of the todo item
+                listRef:
+                  type: object
+                  required:
+                    - name
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the parent todo list
+                    namespace:
+                      type: string
+                      description: Namespace of the parent todo list
+            status:
+              type: object
+              properties:
+                lastUpdated:
+                  type: string
+                  format: date-time
+                  description: Last time the todo item was updated
+      additionalPrinterColumns:
+        - name: Item
+          type: string
+          description: The name of the todo item
+          jsonPath: .spec.name
+        - name: List
+          type: string
+          description: Parent list name
+          jsonPath: .spec.listRef.name
+        - name: Completed
+          type: boolean
+          description: Whether the item is completed
+          jsonPath: .spec.completed
+        - name: Priority
+          type: string
+          description: Priority of the item
+          jsonPath: .spec.priority
+        - name: Age
+          type: date
+          jsonPath: .metadata.creationTimestamp
+      subresources:
+        status: {}

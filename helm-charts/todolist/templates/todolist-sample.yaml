@@ -1,0 +1,19 @@
+apiVersion: todo.example.com/v1
+kind: TodoList
+metadata:
+  name: {{ include "todolist.fullname" . }}-sample
+  labels:
+    {{- include "todolist.labels" . | nindent 4 }}
+spec:
+  title: Sample Todo List
+  description: A sample todo list created by Helm installation
+  items:
+    - name: Learn Kubernetes
+      completed: true
+      priority: high
+    - name: Learn Helm
+      completed: false
+      priority: high
+    - name: Implement Custom Resources
+      completed: false
+      priority: medium
