@@ -1,0 +1,91 @@
+{{- if .Values.crds.install }}
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: todolists.todo.example.com
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-10"
+    "helm.sh/hook-delete-policy": {{ if not .Values.crds.keep }}"before-hook-creation"{{ else }}"hook-succeeded"{{ end }}
+spec:
+  group: todo.example.com
+  names:
+    kind: TodoList
+    listKind: TodoListList
+    plural: todolists
+    singular: todolist
+    shortNames:
+      - tdl
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              required:
+                - title
+              properties:
+                title:
+                  type: string
+                  description: Title of the todo list
+                description:
+                  type: string
+                  description: Description of the todo list
+                items:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - name
+                    properties:
+                      name:
+                        type: string
+                        description: Name of the todo item
+                      completed:
+                        type: boolean
+                        description: Whether the todo item is completed
+                      dueDate:
+                        type: string
+                        format: date-time
+                        description: Due date for the todo item
+                      priority:
+                        type: string
+                        enum: [low, medium, high]
+                        description: Priority of the todo item
+            status:
+              type: object
+              properties:
+                completedItems:
+                  type: integer
+                  description: Number of completed items
+                totalItems:
+                  type: integer
+                  description: Total number of items
+                lastUpdated:
+                  type: string
+                  format: date-time
+                  description: Last time the todo list was updated
+      additionalPrinterColumns:
+        - name: Title
+          type: string
+          description: The title of the todo list
+          jsonPath: .spec.title
+        - name: Total
+          type: integer
+          description: Total number of items
+          jsonPath: .status.totalItems
+        - name: Completed
+          type: integer
+          description: Number of completed items
+          jsonPath: .status.completedItems
+        - name: Age
+          type: date
+          jsonPath: .metadata.creationTimestamp
+      subresources:
+        status: {}
+{{- end }}
