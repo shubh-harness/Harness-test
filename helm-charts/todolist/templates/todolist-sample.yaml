@@ -4,6 +4,7 @@ metadata:
   name: {{ include "todolist.fullname" . }}-sample
   labels:
     {{- include "todolist.labels" . | nindent 4 }}
+    harness.io/managed-workload: "true"
   annotations:
     # This annotation ensures this is created after CRDs
     "helm.sh/hook": post-install,post-upgrade
