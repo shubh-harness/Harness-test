@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-todo-app
-  # namespace: shubh-service
+  namespace: shubh-service
   labels:
     app: {{ .Release.Name }}-todo-app
 spec:
