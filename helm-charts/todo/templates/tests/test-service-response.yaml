@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ .Release.Name }}-todo-app-test-service-response"
+  labels:
+    app: {{ .Release.Name }}-todo-app
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: curl
+      image: curlimages/curl:7.78.0
+      command: ["curl"]
+      args: 
+        - "--fail"
+        - "--silent"
+        - "--show-error"
+        - "--include"
+        - "--location"
+        - "{{ .Release.Name }}-todo-app:{{ .Values.service.port }}"
+  restartPolicy: Never
