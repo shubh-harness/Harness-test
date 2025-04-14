@@ -20,4 +20,8 @@ ingress:
           pathType: ImplementationSpecific
   tls: []
 
+namespace:
+  create: true
+  name: "todo-app"
+
 resources: {}
