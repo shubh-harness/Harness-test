@@ -2,7 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-todo-app
-  namespace: {{ .Values.namespace.name | default "todo-app" }}
+  # namespace: {{ .Values.namespace.name | default "todo-app" }}
+  namespace: "shubh-infra"
   labels:
     app: {{ .Release.Name }}-todo-app
 spec:
