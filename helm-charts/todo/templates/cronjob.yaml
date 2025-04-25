@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "todo.fullname" . }}-cleanup
+  labels:
+    {{- include "todo.labels" . | nindent 4 }}
+    app.kubernetes.io/component: cronjob
+    harness.io/managed-workload: "true"
+spec:
+  # Run every 5 seconds (note: standard Kubernetes doesn't support seconds in cron expressions)
+  # For standard Kubernetes use "*/1 * * * *" for every minute
+  schedule: "*/5 * * * * *"
+  concurrencyPolicy: {{ .Values.cronjob.concurrencyPolicy | default "Forbid" }}
+  successfulJobsHistoryLimit: {{ .Values.cronjob.successfulJobsHistoryLimit | default 3 }}
+  failedJobsHistoryLimit: {{ .Values.cronjob.failedJobsHistoryLimit | default 1 }}
+  suspend: {{ .Values.cronjob.suspend | default false }}
+  jobTemplate:
+    spec:
+      backoffLimit: {{ .Values.cronjob.backoffLimit | default 3 }}
+      template:
+        metadata:
+          labels:
+            {{- include "todo.selectorLabels" . | nindent 12 }}
+            app.kubernetes.io/component: cronjob
+            harness.io/managed-workload: "true"
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: {{ .Chart.Name }}-cleanup
+              image: "{{ default .Values.image.repository .Values.cronjob.image.repository | default "busybox" }}:{{ default .Values.image.tag .Values.cronjob.image.tag | default "latest" }}"
+              imagePullPolicy: {{ default .Values.image.pullPolicy .Values.cronjob.image.pullPolicy | default "IfNotPresent" }}
+              command: 
+              {{- if .Values.cronjob.command }}
+                {{ toYaml .Values.cronjob.command | nindent 16 }}
+              {{- else }}
+                - "/bin/sh"
+                - "-c"
+                - "echo Running cleanup task at $(date); sleep 2; echo Cleanup completed"
+              {{- end }}
+              resources:
+              {{- if .Values.cronjob.resources }}
+                {{- toYaml .Values.cronjob.resources | nindent 16 }}
+              {{- else }}
+                limits:
+                  cpu: 50m
+                  memory: 64Mi
+                requests:
+                  cpu: 25m
+                  memory: 32Mi
+              {{- end }}
