@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "todo.labels" . | nindent 4 }}
     app.kubernetes.io/component: cronjob
-    harness.io/managed-workload: "true"
+    # harness.io/managed-workload: "true"
 spec:
   # Run every 5 seconds (note: standard Kubernetes doesn't support seconds in cron expressions)
   # For standard Kubernetes use "*/1 * * * *" for every minute
@@ -22,7 +22,7 @@ spec:
           labels:
             {{- include "todo.selectorLabels" . | nindent 12 }}
             app.kubernetes.io/component: cronjob
-            harness.io/managed-workload: "true"
+            # harness.io/managed-workload: "true"
         spec:
           restartPolicy: OnFailure
           containers:
