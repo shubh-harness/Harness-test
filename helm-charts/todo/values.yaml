@@ -25,3 +25,27 @@ namespace:
   name: "todo-app"
 
 resources: {}
+
+# CronJob configuration
+cronjob:
+  enabled: true
+  concurrencyPolicy: "Forbid"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  suspend: false
+  backoffLimit: 3
+  image:
+    repository: ""  # Uses the main image.repository if empty
+    tag: ""         # Uses the main image.tag if empty
+    pullPolicy: ""  # Uses the main image.pullPolicy if empty
+  command:
+    - "/bin/sh"
+    - "-c"
+    - "echo Running cleanup task at $(date); sleep 2; echo Cleanup completed"
+  resources:
+    limits:
+      cpu: 50m
+      memory: 64Mi
+    requests:
+      cpu: 25m
+      memory: 32Mi
