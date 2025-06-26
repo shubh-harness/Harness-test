@@ -3,3 +3,14 @@ service:
   identifier: apiservicetest
   orgIdentifier: default
   projectIdentifier: Shubhtest
+  serviceDefinition:
+    spec:
+      release:
+        name: release-<+INFRA_KEY_SHORT_ID>
+      variables:
+        - name: key
+          type: String
+          description: ""
+          required: false
+          value: value
+    type: Kubernetes
