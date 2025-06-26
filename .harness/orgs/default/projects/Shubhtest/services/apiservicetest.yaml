@@ -1,0 +1,5 @@
+service:
+  name: apiservicetest
+  identifier: apiservicetest
+  orgIdentifier: default
+  projectIdentifier: Shubhtest
