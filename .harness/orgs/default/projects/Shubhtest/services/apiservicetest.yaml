@@ -12,5 +12,5 @@ service:
           type: String
           description: ""
           required: false
-          value: value-new
+          value: value-new1
     type: Kubernetes
