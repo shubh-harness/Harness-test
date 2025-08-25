@@ -1,0 +1,25 @@
+service:
+  name: helm-service
+  identifier: helmservice
+  serviceDefinition:
+    type: NativeHelm
+    spec:
+      manifests:
+        - manifest:
+            identifier: main
+            type: HelmChart
+            spec:
+              store:
+                type: Harness
+                spec:
+                  files:
+                    - account:/helm_chart/todoList
+              valuesPaths:
+                - account:/helm_chart/todoList/values2.yaml
+              helmVersion: V3
+              skipResourceVersioning: false
+              enableDeclarativeRollback: false
+              fetchHelmChartMetadata: false
+  gitOpsEnabled: false
+  orgIdentifier: default
+  projectIdentifier: shubh
