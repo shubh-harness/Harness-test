@@ -1,0 +1,32 @@
+service:
+  name: helm-test
+  identifier: helmtest
+  serviceDefinition:
+    type: NativeHelm
+    spec:
+      manifests:
+        - manifest:
+            identifier: mani
+            type: HelmChart
+            spec:
+              store:
+                type: Github
+                spec:
+                  connectorRef: shubhrepo
+                  gitFetchType: Branch
+                  folderPath: helm-charts/basic-nginx-chart
+                  branch: main
+              subChartPath: ""
+              valuesPaths:
+                - helm-charts/basic-nginx-chart/values.yaml
+              optionalValuesYaml: false
+              skipResourceVersioning: false
+              enableDeclarativeRollback: false
+              helmVersion: V3
+              fetchHelmChartMetadata: false
+              commandFlags:
+                - commandType: List
+                  flag: "--debug"
+  gitOpsEnabled: false
+  orgIdentifier: default
+  projectIdentifier: shubh
