@@ -1,0 +1,115 @@
+# Default values for nginx-complex chart
+nameOverride: ""
+fullnameOverride: ""
+
+# Global settings
+global:
+  namespace: nginx
+
+# Image configuration
+image:
+  repository: nginx
+  tag: "1.27"
+  pullPolicy: IfNotPresent
+
+# Image pull secrets
+imagePullSecrets:
+  - name: docker-apps
+
+# Service Account
+serviceAccount:
+  create: true
+  name: nginx
+
+# Labels
+labels:
+  app:
+    kubernetes:
+      io:
+        name: nginx
+        version: "1.0"
+  environment: dev
+  owner: platform-team
+
+# Deployment configuration
+deployment:
+  replicaCount: 2
+  strategy:
+    type: RollingUpdate
+  
+  # Container ports
+  ports:
+    http:
+      containerPort: 80
+      name: http
+    metrics:
+      containerPort: 9113
+      name: metrics
+
+  # Probes
+  livenessProbe:
+    httpGet:
+      path: /
+      port: 80
+    initialDelaySeconds: 15
+    periodSeconds: 10
+  
+  readinessProbe:
+    httpGet:
+      path: /
+      port: 80
+    initialDelaySeconds: 5
+    periodSeconds: 10
+
+  # Resources
+  resources:
+    limits:
+      memory: 256Mi
+      cpu: 500m
+    requests:
+      memory: 128Mi
+      cpu: 100m
+
+  # Annotations
+  annotations:
+    prometheus:
+      io:
+        scrape: "true"
+        port: "9113"
+        path: "/metrics"
+
+# Service configuration
+service:
+  type: ClusterIP
+  ports:
+    http:
+      port: 80
+      targetPort: 80
+      name: http
+    metrics:
+      port: 9113
+      targetPort: 9113
+      name: http-metrics
+
+# Pod Disruption Budget
+podDisruptionBudget:
+  enabled: true
+  maxUnavailable: 1
+
+# Secret configuration
+secret:
+  enabled: true
+  name: nginx-secret
+  type: Opaque
+  data:
+    username: YWRtaW4=   # base64 for "admin"
+    password: c2VjcmV0   # base64 for "secret"
+
+# ConfigMap configuration
+configMap:
+  enabled: true
+  name: nginx-config
+  data:
+    NGINX_PORT: "80"
+    NGINX_WORKER_PROCESSES: "1"
+    CUSTOM_HEADER: "X-Nginx-Custom"

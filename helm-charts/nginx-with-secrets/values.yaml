@@ -1,0 +1,73 @@
+## Default values for nginx-with-secrets chart
+## This is a YAML-formatted file.
+
+replicaCount: 1
+
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  tag: "1.21.0"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# Secret configuration for file mounting
+secrets:
+  fileSecret:
+    enabled: true
+    secretName: nginx-file-secret
+    volumeMountPath: "/opt/harness/cluster-secret"
+    keys:
+      - key: "PROD1_SECRET"
+        path: "prod1.json"
+
+# Secret data - in production environment, these values should be managed securely
+secretData:
+  PROD1_SECRET: "{}"  # Empty JSON object as placeholder
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

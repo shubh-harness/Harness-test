@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "nginx-complex.fullname" . }}
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    {{- include "nginx-complex.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  strategy:
+    type: {{ .Values.deployment.strategy.type }}
+  selector:
+    matchLabels:
+      {{- include "nginx-complex.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "nginx-complex.selectorLabels" . | nindent 8 }}
+        {{- include "nginx-complex.labels" . | nindent 8 }}
+      annotations:
+        prometheus.io/scrape: {{ .Values.deployment.annotations.prometheus.io.scrape | quote }}
+        prometheus.io/port: {{ .Values.deployment.annotations.prometheus.io.port | quote }}
+        prometheus.io/path: {{ .Values.deployment.annotations.prometheus.io.path | quote }}
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      imagePullSecrets:
+        {{- toYaml .Values.imagePullSecrets | nindent 8 }}
+      containers:
+      - name: nginx
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - name: {{ .Values.deployment.ports.http.name }}
+          containerPort: {{ .Values.deployment.ports.http.containerPort }}
+        - name: {{ .Values.deployment.ports.metrics.name }}
+          containerPort: {{ .Values.deployment.ports.metrics.containerPort }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.deployment.livenessProbe.httpGet.path }}
+            port: {{ .Values.deployment.livenessProbe.httpGet.port }}
+          initialDelaySeconds: {{ .Values.deployment.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.deployment.livenessProbe.periodSeconds }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.deployment.readinessProbe.httpGet.path }}
+            port: {{ .Values.deployment.readinessProbe.httpGet.port }}
+          initialDelaySeconds: {{ .Values.deployment.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.deployment.readinessProbe.periodSeconds }}
+        resources:
+          {{- toYaml .Values.deployment.resources | nindent 10 }}
+        envFrom:
+        - secretRef:
+            name: {{ .Values.secret.name }}
+        - configMapRef:
+            name: {{ .Values.configMap.name }}
