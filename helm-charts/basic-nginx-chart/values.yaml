@@ -1,8 +1,8 @@
-replicaCount: 4
+replicaCount: 2
 namespace: default
 image:
   repository: nginx
-  tag: stable111
+  tag: stable
   pullPolicy: IfNotPresent
 service:
   type: ClusterIP
