@@ -3,10 +3,12 @@ kind: HorizontalPodAutoscaler
 metadata:
   name: wibed-edocssettings-api-hpa
   namespace: hpa
+  annotations:  # ← MUST BE UNDER ANNOTATIONS!
+    harness.io/direct-apply: "true"  # ← THIS IS THE KEY!
   labels:
     app: wibed-edocssettings-api
     version: stable
-    harness.io/track: stable
+    # harness.io/track: stable (commented out - not needed)
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
