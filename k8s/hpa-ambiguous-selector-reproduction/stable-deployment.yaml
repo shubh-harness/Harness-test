@@ -11,14 +11,14 @@ spec:
   selector:
     matchLabels:
       app: wibed-edocssettings-api
-      harness.io/track: stable
+      # harness.io/track: stable
       # Now specific selector - won't match canary pods
   template:
     metadata:
       labels:
         app: wibed-edocssettings-api
         version: stable
-        harness.io/track: stable
+        # harness.io/track: stable
     spec:
       containers:
       - name: wibed-edocssettings-api
