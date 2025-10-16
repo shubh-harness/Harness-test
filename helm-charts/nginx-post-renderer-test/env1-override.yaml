@@ -1,0 +1,9 @@
+namespace: env1
+image:
+  tag: latest
+
+# Environment 1 secrets - some overlap, some new
+secrets:
+  abc: "secret-abc-from-env1"
+  database_url: "postgres://env1-db:5432/myapp"  # This will override base
+  cache_redis_url: "redis://env1-redis:6379"

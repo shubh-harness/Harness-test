@@ -1,0 +1,8 @@
+namespace: env2
+replicaCount: 3
+
+# Environment 2 secrets - different overlaps
+secrets:
+  def: "secret-def-from-env2"
+  api_key: "env2-api-key-12345"
+  debug_mode: "true"  # This will override base value

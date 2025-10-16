@@ -1,0 +1,12 @@
+namespace: production
+
+# Custom level configuration - highest priority
+custom:
+  secrets:
+    xyz: "custom-secret-xyz"
+    database_url: "postgres://prod-db-cluster:5432/myapp"  # Final override
+    ssl_cert_path: "/etc/ssl/certs/prod.pem"
+
+# Direct secrets for backward compatibility
+secrets:
+  direct_secret: "backwards-compatible-value"

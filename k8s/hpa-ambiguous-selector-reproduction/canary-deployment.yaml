@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wibed-edocssettings-api-canary
+  namespace: hpa
+  labels:
+    app: wibed-edocssettings-api
+    version: canary
+    harness.io/track: canary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wibed-edocssettings-api
+      harness.io/track: canary
+      # This selector is more specific but pods still match the stable HPA selector
+  template:
+    metadata:
+      labels:
+        app: wibed-edocssettings-api
+        version: canary
+        harness.io/track: canary
+    spec:
+      containers:
+      - name: wibed-edocssettings-api
+        image: nginx:1.21
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 20

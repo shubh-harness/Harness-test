@@ -1,0 +1,15 @@
+replicaCount: 2
+namespace: default
+image:
+  repository: nginx
+  tag: stable
+  pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  port: 80
+
+# Base secrets
+secrets:
+  database_url: "postgres://base-db:5432/myapp"
+  api_version: "v1"
+  debug_mode: "false"

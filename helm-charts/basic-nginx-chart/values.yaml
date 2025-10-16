@@ -7,3 +7,14 @@ image:
 service:
   type: ClusterIP
   port: 80
+  test: shubh
+  ports:
+    - port: 80
+      targetPort: 8080
+      name: http
+    - port: 443
+      targetPort: 8443
+      name: https
+    - port: 960
+      targetPort: 9000
+      name: api

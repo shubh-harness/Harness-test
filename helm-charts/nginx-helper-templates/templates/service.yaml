@@ -6,6 +6,9 @@ metadata:
   labels:
     app: nginx
 spec:
-{{ toYaml .Values.service | indent 2 }}
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}
   selector:
     app: nginx

@@ -6,4 +6,12 @@ image:
   pullPolicy: IfNotPresent
 service:
   type: ClusterIP
-  port: 80
+  port: 96
+  test2: shubh1
+  ports:
+    - port: 96
+      targetPort: 9000
+      name: api
+    - port: 3000
+      targetPort: 3000
+      name: metrics-shubh
