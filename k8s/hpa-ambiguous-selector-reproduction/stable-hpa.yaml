@@ -2,7 +2,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: wibed-edocssettings-api-hpa
-  namespace: hpa
+  namespace: default
   labels:
     app: wibed-edocssettings-api
     version: stable

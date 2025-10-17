@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wibed-edocssettings-api
-  namespace: hpa
+  namespace: default
   labels:
     app: wibed-edocssettings-api
     version: stable
