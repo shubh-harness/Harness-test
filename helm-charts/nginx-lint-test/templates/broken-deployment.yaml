@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.releaseName }}-broken
+  namespace: {{ .Values.namespace }}
+spec:
+  # LINT ISSUE 1: Missing required field 'selector'
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: broken-app
+    spec:
+      containers:
+        - name: broken-container
+          # LINT ISSUE 2: Referencing undefined value
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          resources:
+            requests:
+              # LINT ISSUE 3: Invalid CPU value format
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
+

@@ -1,0 +1,9 @@
+apiVersion: v2
+name: nginx-lint-test
+description: Helm chart with intentional lint issues for testing validation
+version: 1.0.0
+appVersion: "1.0"
+# LINT ISSUE 8: Missing recommended fields
+# maintainers: []
+# icon: https://example.com/icon.png
+
