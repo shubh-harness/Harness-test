@@ -1,1 +1,1 @@
-replica:<+secret.getValue("replica")>
+replica: <+secrets.getValue("replica")>
