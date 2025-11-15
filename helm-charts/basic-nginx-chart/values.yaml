@@ -1,4 +1,4 @@
-replicaCount: <+pipeline.variables.replica>
+replicaCount: <+configFile.getAsString("replicaConfig")>
 namespace: default
 image:
   repository: nginx
