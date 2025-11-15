@@ -1,4 +1,4 @@
-replicaCount: <+secrets.getValue('replica')>
+replicaCount: <+pipeline.variables.replica>
 namespace: default
 image:
   repository: nginx
