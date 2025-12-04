@@ -5,6 +5,7 @@ metadata:
   namespace: {{ .Values.namespace }}
   labels:
     app: nginx
+    shubh: cache
 spec:
   type: {{ .Values.service.type }}
   ports:
