@@ -12,5 +12,5 @@ spec:
     - name: curl
       image: curlimages/curl:7.78.0
       command: ["curl"]
-      args: ["--fail", "--silent", "nginx-deployment:{{ .Values.service.port }}"]
+      args: ["--fail", "--silent", "nginx-deployment:80"]
   restartPolicy: Never

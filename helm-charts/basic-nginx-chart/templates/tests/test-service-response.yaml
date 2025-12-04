@@ -18,5 +18,5 @@ spec:
         - "--show-error"
         - "--include"
         - "--location"
-        - "nginx-deployment:{{ .Values.service.port }}"
+        - "nginx-deployment:80"
   restartPolicy: Never

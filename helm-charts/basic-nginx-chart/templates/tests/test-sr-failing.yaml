@@ -18,5 +18,5 @@
 #         - "--show-error"
 #         - "--max-time"
 #         - "5"
-#         - "nginx-deployment:{{ .Values.service.port }}/non-existent-path"
+#         - "nginx-deployment:80/non-existent-path"
 #   restartPolicy: Never
