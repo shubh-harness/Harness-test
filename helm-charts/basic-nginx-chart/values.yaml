@@ -1,4 +1,4 @@
-replicaCount: <+configFile.getAsString("replicaConfig")>
+replicaCount: 2
 namespace: default
 image:
   repository: nginx
