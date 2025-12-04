@@ -7,7 +7,6 @@ image:
 service:
   type: ClusterIP
   port: 80
-  test: shubh
   ports:
     - port: 80
       targetPort: 8080
