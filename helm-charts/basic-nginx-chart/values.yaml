@@ -16,3 +16,25 @@ service:
     - port: 960
       targetPort: 9000
       name: api
+
+# ConfigMap data - will be created with name: {{ .Release.Name }}
+configmap:
+  data:
+    app.properties: |
+      app.name=MyNginxApp
+      app.version=1.0.0
+      environment=production
+    config.json: |
+      {
+        "server": "nginx",
+        "port": 80,
+        "enabled": true
+      }
+
+# Secret data - will be created with name: {{ .Release.Name }}
+# Note: Values will be base64 encoded automatically
+secret:
+  data:
+    database-password: supersecretpassword
+    api-key: my-api-key-12345
+    token: access-token-xyz

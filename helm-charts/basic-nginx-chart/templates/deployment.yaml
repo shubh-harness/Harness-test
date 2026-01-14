@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: {{ .Release.Name }}
   namespace: {{ .Values.namespace }}
   labels:
     app: nginx
@@ -28,3 +28,17 @@ spec:
               path: /
               port: 80
             timeoutSeconds: 10
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/config
+              readOnly: true
+            - name: secret-volume
+              mountPath: /etc/secrets
+              readOnly: true
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ .Release.Name }}
+        - name: secret-volume
+          secret:
+            secretName: {{ .Release.Name }}
