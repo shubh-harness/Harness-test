@@ -20,16 +20,16 @@ service:
 # ConfigMap data - will be created with name: {{ .Release.Name }}
 configmap:
   data:
-    app.properties: |
-      app.name=MyNginxApp
-      app.version=1.0.0
-      environment=production
-    config.json: |
-      {
-        "server": "nginx",
-        "port": 80,
-        "enabled": true
-      }
+    # app.properties: |
+    #   app.name=MyNginxApp
+    #   app.version=1.0.0
+    #   environment=production
+    # config.json: |
+    #   {
+    #     "server": "nginx",
+    #     "port": 80,
+    #     "enabled": true
+    #   }
   # binaryData: Base64-encoded binary data (already encoded)
   # Example: echo "binary content" | base64
   binaryData:
