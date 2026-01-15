@@ -17,34 +17,16 @@ service:
       targetPort: 9000
       name: api
 
-# ConfigMap data - will be created with name: {{ .Release.Name }}
+# ConfigMap - will be created with name: {{ .Release.Name }}
 configmap:
-  # data:
-    # app.properties: |
-    #   app.name=MyNginxApp
-    #   app.version=1.0.0
-    #   environment=production
-    # config.json: |
-    #   {
-    #     "server": "nginx",
-    #     "port": 80,
-    #     "enabled": true
-    #   }
   # binaryData: Base64-encoded binary data (already encoded)
-  # Example: echo "binary content" | base64
   binaryData:
     binary-file.bin: "YmluYXJ5IGNvbnRlbnQ="
     image.png: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
 
-# Secret data - will be created with name: {{ .Release.Name }}
+# Secret - will be created with name: {{ .Release.Name }}
 secret:
-  # data: Values will be base64 encoded automatically by Helm
-  # data:
-  #   database-password: supersecretpassword
-  #   api-key: my-api-key-12345
-  #   token: access-token-xyz
   # stringData: Plain text values, Kubernetes will encode them automatically
-  # Use stringData when you want to provide plain text without manual encoding
   stringData:
     app-secret: "plain-text-secret-value"
     credentials.json: |
