@@ -10,3 +10,9 @@ data:
 {{- range $key, $value := .Values.configmap.data }}
   {{ $key }}: {{ $value | quote }}
 {{- end }}
+{{- if .Values.configmap.binaryData }}
+binaryData:
+{{- range $key, $value := .Values.configmap.binaryData }}
+  {{ $key }}: {{ $value | quote }}
+{{- end }}
+{{- end }}
