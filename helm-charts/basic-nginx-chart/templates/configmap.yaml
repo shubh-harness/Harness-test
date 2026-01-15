@@ -6,9 +6,11 @@ metadata:
   labels:
     app: nginx
     release: {{ .Release.Name }}
+{{- if .Values.configmap.data }}
 data:
 {{- range $key, $value := .Values.configmap.data }}
   {{ $key }}: {{ $value | quote }}
+{{- end }}
 {{- end }}
 {{- if .Values.configmap.binaryData }}
 binaryData:

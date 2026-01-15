@@ -19,7 +19,7 @@ service:
 
 # ConfigMap data - will be created with name: {{ .Release.Name }}
 configmap:
-  data:
+  # data:
     # app.properties: |
     #   app.name=MyNginxApp
     #   app.version=1.0.0
@@ -39,10 +39,10 @@ configmap:
 # Secret data - will be created with name: {{ .Release.Name }}
 secret:
   # data: Values will be base64 encoded automatically by Helm
-  data:
-    database-password: supersecretpassword
-    api-key: my-api-key-12345
-    token: access-token-xyz
+  # data:
+  #   database-password: supersecretpassword
+  #   api-key: my-api-key-12345
+  #   token: access-token-xyz
   # stringData: Plain text values, Kubernetes will encode them automatically
   # Use stringData when you want to provide plain text without manual encoding
   stringData:
