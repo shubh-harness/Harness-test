@@ -1,7 +1,7 @@
 replicaCount: 2
 namespace: default
 image:
-  repository: nginx
+  repository: nginxs
   tag: stable
   pullPolicy: IfNotPresent
 service:
