@@ -75,13 +75,13 @@ objects:
 parameters:
 - name: NAME
   description: Name of the application
-  value: nginx
+  required: true
 - name: REPLICAS
   description: Number of replicas
   value: "1"
 - name: IMAGE
   description: Container image repository
-  value: nginx
+  required: true
 - name: IMAGE_TAG
   description: Container image tag
   value: latest
