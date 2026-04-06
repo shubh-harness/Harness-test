@@ -1,0 +1,24 @@
+# Nginx deployment values for OpenShift
+name: nginx
+replicas: 1
+
+image:
+  repository: nginx
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+route:
+  enabled: true
+  host: ""
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi

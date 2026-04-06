@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "nginx-test-connection"
+  name: "nginx-test-connection-bg"
   namespace: {{ .Values.namespace }}
   labels:
     app: nginx

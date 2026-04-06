@@ -8,11 +8,18 @@ service:
   type: ClusterIP
   ports:
     - port: 80
-      targetPort: 8080
+      targetPort: 80
       name: http
     - port: 443
-      targetPort: 8443
+      targetPort: 443
       name: https
     - port: 960
       targetPort: 9000
       name: api
+
+# ConfigMap - will be created with name: {{ .Release.Name }}
+configmap:
+  # binaryData: Base64-encoded binary data (already encoded)
+  binaryData:
+    binary-file.bin: "YmluYXJ5IGNvbnRlbnQ="
+    image.png: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
