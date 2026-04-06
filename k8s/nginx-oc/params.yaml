@@ -1,11 +1,23 @@
-NAME: nginx
-REPLICAS: "1"
-IMAGE: nginx
-IMAGE_TAG: latest
-IMAGE_PULL_POLICY: IfNotPresent
-SERVICE_TYPE: ClusterIP
-SERVICE_PORT: "80"
-RESOURCE_LIMIT_CPU: 100m
-RESOURCE_LIMIT_MEMORY: 128Mi
-RESOURCE_REQUEST_CPU: 50m
-RESOURCE_REQUEST_MEMORY: 64Mi
+parameters:
+- name: NAME
+  value: nginx
+- name: REPLICAS
+  value: "1"
+- name: IMAGE
+  value: nginx
+- name: IMAGE_TAG
+  value: latest
+- name: IMAGE_PULL_POLICY
+  value: IfNotPresent
+- name: SERVICE_TYPE
+  value: ClusterIP
+- name: SERVICE_PORT
+  value: "80"
+- name: RESOURCE_LIMIT_CPU
+  value: 100m
+- name: RESOURCE_LIMIT_MEMORY
+  value: 128Mi
+- name: RESOURCE_REQUEST_CPU
+  value: 50m
+- name: RESOURCE_REQUEST_MEMORY
+  value: 64Mi
