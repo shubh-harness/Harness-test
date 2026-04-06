@@ -1,1 +1,5 @@
-REDIS_PASSWORD=asdasd
+parameters:
+  - name: PASSWORD
+    description: "The random user password"
+    generate: expression
+    from: "[a-zA-Z0-9]{12}"
