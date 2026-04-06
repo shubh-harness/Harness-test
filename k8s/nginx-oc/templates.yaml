@@ -1,0 +1,112 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: nginx-template
+  annotations:
+    description: "Basic Nginx deployment for OpenShift"
+    iconClass: "icon-nginx"
+    tags: "webserver,nginx"
+objects:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: ${NAME}
+    labels:
+      app: ${NAME}
+  spec:
+    replicas: ${{REPLICAS}}
+    selector:
+      matchLabels:
+        app: ${NAME}
+    template:
+      metadata:
+        labels:
+          app: ${NAME}
+      spec:
+        containers:
+        - name: ${NAME}
+          image: ${IMAGE}:${IMAGE_TAG}
+          imagePullPolicy: ${IMAGE_PULL_POLICY}
+          ports:
+          - containerPort: 80
+          resources:
+            limits:
+              cpu: ${RESOURCE_LIMIT_CPU}
+              memory: ${RESOURCE_LIMIT_MEMORY}
+            requests:
+              cpu: ${RESOURCE_REQUEST_CPU}
+              memory: ${RESOURCE_REQUEST_MEMORY}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: ${NAME}
+    labels:
+      app: ${NAME}
+  spec:
+    type: ${SERVICE_TYPE}
+    ports:
+    - port: ${{SERVICE_PORT}}
+      targetPort: 80
+      protocol: TCP
+    selector:
+      app: ${NAME}
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    name: ${NAME}
+    labels:
+      app: ${NAME}
+  spec:
+    to:
+      kind: Service
+      name: ${NAME}
+      weight: 100
+    port:
+      targetPort: 80
+    wildcardPolicy: None
+parameters:
+- name: NAME
+  description: Name of the application
+  value: nginx
+  required: true
+- name: REPLICAS
+  description: Number of replicas
+  value: "1"
+- name: IMAGE
+  description: Container image repository
+  value: nginx
+  required: true
+- name: IMAGE_TAG
+  description: Container image tag
+  value: latest
+- name: IMAGE_PULL_POLICY
+  description: Image pull policy
+  value: IfNotPresent
+- name: SERVICE_TYPE
+  description: Service type
+  value: ClusterIP
+- name: SERVICE_PORT
+  description: Service port
+  value: "80"
+- name: RESOURCE_LIMIT_CPU
+  description: CPU limit
+  value: 100m
+- name: RESOURCE_LIMIT_MEMORY
+  description: Memory limit
+  value: 128Mi
+- name: RESOURCE_REQUEST_CPU
+  description: CPU request
+  value: 50m
+- name: RESOURCE_REQUEST_MEMORY
+  description: Memory request
+  value: 64Mi
+labels:
+  app: nginx
