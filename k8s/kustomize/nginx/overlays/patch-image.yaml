@@ -8,4 +8,4 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx:1.21  # 👈 Updated version for dev
+          image: nginx:1.22  # 👈 Updated version for dev
