@@ -1,0 +1,37 @@
+#!/bin/sh
+# Kustomize exec generator plugin: AddLabel
+# Generates a ConfigMap that records the label injected by this plugin.
+# This proves the plugin was invoked during kustomize build.
+#
+# Plugin config format:
+#   apiVersion: harness.io/v1
+#   kind: AddLabel
+#   metadata:
+#     name: <name>
+#   label: "<key>=<value>"
+
+set -e
+
+CONFIG="${KUSTOMIZE_PLUGIN_CONFIG_STRING:-}"
+
+LABEL=$(echo "$CONFIG" | grep '^label:' | sed 's/label:[[:space:]]*//' | tr -d '"')
+
+if [ -z "$LABEL" ]; then
+  echo "AddLabel plugin: no label specified in config" >&2
+  exit 1
+fi
+
+LABEL_KEY=$(echo "$LABEL" | cut -d= -f1)
+LABEL_VALUE=$(echo "$LABEL" | cut -d= -f2)
+
+cat <<EOF
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: plugin-injected-labels
+  annotations:
+    harness.io/generated-by: AddLabel-plugin
+data:
+  ${LABEL_KEY}: "${LABEL_VALUE}"
+  plugin-version: "harness.io/v1"
+EOF
