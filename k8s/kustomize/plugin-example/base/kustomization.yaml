@@ -6,3 +6,6 @@ resources:
 
 generators:
   - add-label-config.yaml
+
+patches:
+  - path: patch-replicas.yaml
