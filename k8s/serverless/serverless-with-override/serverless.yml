@@ -1,0 +1,43 @@
+service: ${self:custom.PARAMETERS.serviceName}
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: ${self:custom.PARAMETERS.runtime}
+  stage: ${opt:stage, self:custom.DEPLOYMENT_ENV}
+  region: ${self:custom.PARAMETERS.region}
+  memorySize: ${self:custom.PARAMETERS.memorySize}
+  timeout: ${self:custom.PARAMETERS.timeout}
+  environment:
+    APP_ENV: ${self:custom.DEPLOYMENT_ENV}
+
+package:
+  artifact: <+artifact.path>
+
+functions:
+  currentTime:
+    handler: com.serverless.Handler
+    name: ${opt:stage, self:custom.DEPLOYMENT_ENV}-${self:custom.PARAMETERS.serviceName}-currentTime
+    # To use container image instead of artifact zip, uncomment below and comment out package.artifact above
+    # image: <+artifact.image>
+    events:
+      - httpApi:
+          path: /time
+          method: get
+  healthCheck:
+    handler: com.serverless.HealthHandler
+    name: ${opt:stage, self:custom.DEPLOYMENT_ENV}-${self:custom.PARAMETERS.serviceName}-healthCheck
+    events:
+      - httpApi:
+          path: /health
+          method: get
+
+custom:
+  DEFAULT_ENV_SETUP: dev
+  DEPLOYMENT_ENV: ${self:custom.CONFIG.ENV, self:custom.DEFAULT_ENV_SETUP}
+  CONFIG:
+    ENV: ${opt:stage, self:custom.DEFAULT_ENV_SETUP}
+  PARAMETERS: ${file(./env/${self:custom.DEPLOYMENT_ENV}/parameters.json)}
+
+plugins:
+  - serverless-manifest-plugin
