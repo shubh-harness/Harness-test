@@ -1,5 +1,0 @@
-apiVersion: harness.io/v1
-kind: AddLabel
-metadata:
-  name: add-env-label
-label: "env=plugin-test"
