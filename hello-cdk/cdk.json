@@ -1,0 +1,10 @@
+{
+  "app": "mvn -e -q compile exec:java",
+  "watch": {
+    "include": ["**"],
+    "exclude": ["README.md", "cdk*.json", "target", "pom.xml", ".idea", ".settings", ".classpath", ".project"]
+  },
+  "context": {
+    "@aws-cdk/core:stackRelativeExports": true
+  }
+}
