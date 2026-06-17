@@ -1,7 +1,6 @@
 package com.myorg;
 
 import software.amazon.awscdk.App;
-import software.amazon.awscdk.Environment;
 import software.amazon.awscdk.StackProps;
 
 public class HelloCdkApp {
@@ -18,17 +17,10 @@ public class HelloCdkApp {
             stack2Name = "HelloCdkStack2";
         }
 
-        Environment env = Environment.builder()
-                .account(System.getenv("CDK_DEFAULT_ACCOUNT"))
-                .region(System.getenv("CDK_DEFAULT_REGION"))
-                .build();
-
-        StackProps stackProps = StackProps.builder().env(env).build();
-
-        new HelloCdkStack(app, stack1Name, stackProps,
+        new HelloCdkStack(app, stack1Name, StackProps.builder().build(),
                 "defaultSecretNameStack1");
 
-        new HelloCdkStack(app, stack2Name, stackProps,
+        new HelloCdkStack(app, stack2Name, StackProps.builder().build(),
                 "defaultSecretNameStack2");
 
         app.synth();
