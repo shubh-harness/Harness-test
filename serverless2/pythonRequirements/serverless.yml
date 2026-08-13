@@ -1,0 +1,17 @@
+service: newcheckstry
+frameworkVersion: '3.30.1'
+
+provider:
+  name: aws
+  runtime: python3.9
+
+functions:
+  currentTime:
+    image: <+artifact.image>
+    events:
+      - httpApi:
+          path: /time
+          method: get
+
+plugins:
+  - serverless-python-requirements
