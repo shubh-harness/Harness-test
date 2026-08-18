@@ -1,0 +1,33 @@
+# Initial VirtualService — Harness overwrites this on each deploy to apply the configured weights.
+# Pipeline step: resource_name: virtual-service-<+service.name>
+# Resolves to: virtual-service-k8sbgtristiocheckroutingukn
+#
+# Route config from pipeline:
+#   [{"type":"http","name":"route1","destinations":[
+#     {"host":"stable","port":80,"weight":90},
+#     {"host":"stage","weight":10}
+#   ]}]
+# Harness maps "stable" → nginx-svc-stable and "stage" → nginx-svc-stage.
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: virtual-service-k8sbgtristiocheckroutingukn
+  namespace: istio-bg
+spec:
+  hosts:
+    - nginx-svc-stable
+  gateways:
+    - nginx-bg-gateway
+  http:
+    - name: route1
+      route:
+        - destination:
+            host: nginx-svc-stable
+            port:
+              number: 80
+          weight: 100
+        - destination:
+            host: nginx-svc-stage
+            port:
+              number: 80
+          weight: 0

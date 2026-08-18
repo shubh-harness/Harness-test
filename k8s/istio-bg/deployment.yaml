@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-bg
+  namespace: istio-bg
+  labels:
+    app: nginx-bg
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-bg
+  template:
+    metadata:
+      labels:
+        app: nginx-bg
+    spec:
+      containers:
+        - name: nginx
+          image: nginxdemos/hello:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
