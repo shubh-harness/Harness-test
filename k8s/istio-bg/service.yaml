@@ -1,22 +1,3 @@
-# Base service — Harness BG PrepareAction clones this into nginx-svc-stable and nginx-svc-stage.
-# For local testing, the -stable and -stage variants are created manually below.
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-svc
-  namespace: istio-bg
-  labels:
-    app: nginx-bg
-spec:
-  selector:
-    app: nginx-bg
-  ports:
-    - name: http
-      port: 80
-      targetPort: 80
-  type: ClusterIP
----
-# Stable variant — Harness manages this; included here for local testing only
 apiVersion: v1
 kind: Service
 metadata:
@@ -24,7 +5,8 @@ metadata:
   namespace: istio-bg
   labels:
     app: nginx-bg
-    harness.io/color: blue
+  annotations:
+    harness.io/primary-service: "true"
 spec:
   selector:
     app: nginx-bg
@@ -34,7 +16,6 @@ spec:
       targetPort: 80
   type: ClusterIP
 ---
-# Stage variant — Harness manages this; included here for local testing only
 apiVersion: v1
 kind: Service
 metadata:
@@ -42,7 +23,8 @@ metadata:
   namespace: istio-bg
   labels:
     app: nginx-bg
-    harness.io/color: green
+  annotations:
+    harness.io/stage-service: "true"
 spec:
   selector:
     app: nginx-bg
