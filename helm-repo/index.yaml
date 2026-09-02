@@ -2,11 +2,11 @@ apiVersion: v1
 entries:
   my-nginx-chart:
   - apiVersion: v2
-    created: "2026-09-02T16:39:41.131131+05:30"
+    created: "2026-09-02T16:44:28.83728+05:30"
     description: A Helm chart for deploying NGINX with pre and post install hooks
     digest: 8fd543d14205027ad83349368096f17727bfa16cadddf1c2468b32cf6d89857f
     name: my-nginx-chart
     urls:
-    - https://shubh-helm-repo.s3.amazonaws.com/my-nginx-chart-0.1.0.tgz
+    - https://shubh-test-harness.s3.amazonaws.com/helm-repo/my-nginx-chart-0.1.0.tgz
     version: 0.1.0
-generated: "2026-09-02T16:39:41.13066+05:30"
+generated: "2026-09-02T16:44:28.836792+05:30"
