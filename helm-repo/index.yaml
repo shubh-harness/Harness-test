@@ -1,0 +1,12 @@
+apiVersion: v1
+entries:
+  my-nginx-chart:
+  - apiVersion: v2
+    created: "2026-09-02T15:40:16.727764+05:30"
+    description: A Helm chart for deploying NGINX with pre and post install hooks
+    digest: 8fd543d14205027ad83349368096f17727bfa16cadddf1c2468b32cf6d89857f
+    name: my-nginx-chart
+    urls:
+    - https://shubh-harness.github.io/Harness-test/helm-repo/my-nginx-chart-0.1.0.tgz
+    version: 0.1.0
+generated: "2026-09-02T15:40:16.727513+05:30"
