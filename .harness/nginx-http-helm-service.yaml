@@ -1,0 +1,26 @@
+service:
+  name: nginx-http-helm
+  identifier: nginxhttphelm
+  serviceDefinition:
+    type: NativeHelm
+    spec:
+      manifests:
+        - manifest:
+            identifier: nginx-chart
+            type: HelmChart
+            spec:
+              store:
+                type: Http
+                spec:
+                  connectorRef: basic_nginx_http_helm
+              chartName: my-nginx-chart
+              chartVersion: <+input>.default(0.1.0)
+              helmVersion: V3
+              skipResourceVersioning: false
+              enableDeclarativeRollback: false
+              fetchHelmChartMetadata: false
+              valuesPaths:
+                - helm-charts/basic-nginx-chart/values.yaml
+  gitOpsEnabled: false
+  orgIdentifier: default
+  projectIdentifier: shubh
