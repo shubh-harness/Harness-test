@@ -5,6 +5,7 @@ metadata:
   labels:
     app: myapp
     type: front-end
+    release-revision: "${{kubernetes.release.revision}}"
 spec:
   replicas: 1
   selector:
@@ -16,10 +17,10 @@ spec:
       labels:
         app: myapp
         type: front-end
+        release-revision: "${{kubernetes.release.revision}}"
     spec:
       imagePullSecrets:
         - name: regcred
       containers:
         - name: nginx-container
           image: {{ .Values.image }}
-
